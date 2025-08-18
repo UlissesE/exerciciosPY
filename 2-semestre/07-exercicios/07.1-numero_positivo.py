@@ -1,13 +1,22 @@
-numero_positivo = int(input("Insira um número. "))
+numero_positivo = ''
+while not numero_positivo.isdigit():
+    numero_positivo = input("Insira um número. ")
+    if not numero_positivo.isdigit():
+        print("Ainda não é digito")
 print("Número positivo!") if numero_positivo > 0 else print("Número não positivo.")
 print(f"\n")
 
-numero_par = int(input("Insira outro número. "))
+numero_par = ''
+while not numero_par.isdigit():
+    numero_par = input("Insira outro número. ")
+    if not numero_par.isdigit():
+        print("Ainda não é dígito")
 print("Número par!") if numero_par % 2 == 0 else print("Número ímpar.")
 print(f"\n")
 
-contem_letra_a = input("Escreva uma palavra. ").lower()
-print("Contém letra 'a'") if "a" in contem_letra_a else print("Não contém letra 'a'")
+
+contem_letra_a = input("Escreva uma palavra. ")
+print(f"{contem_letra_a} contém letra 'a'") if "a" in contem_letra_a.lower() else print("Não contém letra 'a'")
 print(f"\n")
 
 temperatura = ''
@@ -26,14 +35,18 @@ else:
 print(f"\n")
 
 
-numero_dez = int(input("Insira o número 10: "))
+numero_dez = ''
+while not numero_dez.isdigit():
+    numero_dez = input("Insira o número 10: ")
+    if not numero_dez.isdigit():
+        print("Insira um dígito")
 if numero_par == 10:
     print("Obrigado :D")
 else: 
     print("Esse não é o número 10 :(")
 print(f"\n")
 
-impar_ou_par = int(input("Digite um número: "))
+impar_ou_par = input("Digite um número: ")
 if impar_ou_par % 2 == 0:
     print("É par")
 elif impar_ou_par % 2 == 1:
@@ -104,4 +117,3 @@ elif nota_do_aluno >= 70:
 else:
     print("Insuficiente")
 
-    
