@@ -247,20 +247,19 @@ tabuleiro a partir dai
 # teste 08
 def tabuleiro_xadrez(tamanho):
     tabuleiro = []
-    linha = []
+    count = 2
 
     for _ in range(tamanho):
-        count = 2
         coluna = []
+       
         for _ in range(tamanho):
             peca = "x" if count % 2 == 0 else "." 
             coluna.append(peca)
             count = count + 1
+
         count += 1
         tabuleiro.append(coluna)
 
-        print(linha)
-    # tabuleiro = [[peca for _ in range(tamanho)] for _ in range(tamanho)]
     return tabuleiro
     
 
