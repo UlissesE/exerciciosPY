@@ -245,23 +245,40 @@ repare, marcamos com um x a posicao 0,0, e seguimos construindo o
 tabuleiro a partir dai
 '''
 # teste 08
+# def tabuleiro_xadrez(tamanho):
+#     tabuleiro = []
+#     count = 2
+
+#     for _ in range(tamanho):
+#         coluna = []
+       
+#         for _ in range(tamanho):
+#             peca = "x" if count % 2 == 0 else "." 
+#             coluna.append(peca)
+#             count = count + 1
+
+#         count += 1
+#         tabuleiro.append(coluna)
+
+#     return tabuleiro
+
 def tabuleiro_xadrez(tamanho):
     tabuleiro = []
-    count = 2
 
-    for _ in range(tamanho):
+    for i in range(tamanho):
         coluna = []
        
-        for _ in range(tamanho):
-            peca = "x" if count % 2 == 0 else "." 
+        for j in range(tamanho):
+            peca = "x" if ((i + j) % 2 == 0) else "." 
+            # if (i + j) % 2 == 0:
+            #     peca = "x"
+            # else:
+            #     peca = "."
             coluna.append(peca)
-            count = count + 1
 
-        count += 1
         tabuleiro.append(coluna)
 
     return tabuleiro
-    
 
 
 
