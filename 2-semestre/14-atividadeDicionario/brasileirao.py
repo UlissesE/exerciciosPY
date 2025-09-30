@@ -136,7 +136,7 @@ as strings "1" e "5" em números inteiros
 '''
 
 def qtos_libertadores(dados):
-    qtd = (dados['fases']['2700']['faixas-classificacao']['classifica1']['faixa'])
+    qtd = dados['fases']['2700']['faixas-classificacao']['classifica1']['faixa']
     n_max = int(qtd.split('-')[1])
     return n_max
 
@@ -148,12 +148,13 @@ O tamanho da lista que deve ser retornada é o argumento "numero_de_times"
 '''
 def ids_dos_melhor_classificados(dados,numero_de_times):
     times_classificados = []
+    lista_classificados = dados['fases']['2700']['classificacao']['grupo']['Único']
 
-    for i in range(0, numero_de_times):
-        time = dados['fases']['2700']['classificacao']['grupo']['Único'][i]
-        times_classificados.append(time)
+    # for i in range(0, numero_de_times):
+    #     time = dados['fases']['2700']['classificacao']['grupo']['Único'][i]
+    #     times_classificados.append(time)
     
-    return times_classificados
+    return lista_classificados[0:numero_de_times] ##retorna a sublista dos n primeiros. Isto é um slice , que vai de 0 até numero_de_times-1
 
 
 '''
@@ -244,10 +245,10 @@ o nome-comum de um time, queremos saber sua id.
 Se o nome comum nao existir, retorne 'nao encontrado'
 '''
 def id_do_time(dados,nome_time):
-    priint()
-    for time in dados['equipes']:
-        if time['nome-comum'] == nome_time:
-            return time['id']
+    for time in dados['equipes'].keys():
+        nome_do_time = dados['equipes'][time]['nome-comum']
+        if nome_do_time == nome_time:
+            return dados['equipes'][time]['id']
     return 'nao encontrado'
 
 
@@ -261,7 +262,9 @@ dica: busque em dados['fases']
 
 '''
 def datas_de_jogo(dados):
-    pass
+    lista_de_datas = dados['fases']['2700']['jogos']['data']
+
+    return lista_de_datas
 
 '''
 Crie uma funcao data_de_um_jogo, que recebe a id numérica de um jogo
@@ -273,7 +276,15 @@ vai falhar
 
 '''
 def data_de_um_jogo(dados,id_jogo):
-    pass
+    
+    lista_de_jogos = dados['fases']['2700']['jogos']['id']
+
+    if id_jogo in lista_de_jogos.keys():
+        return lista_de_jogos[id_jogo]['data']
+    return 'nao encontrado'
+
+
+
 
 
 '''
@@ -286,7 +297,16 @@ Ou seja, as chaves sao ids de estádios e os valores associados,
 o número de vezes que um jogo ocorreu no estádio
 '''
 def dicionario_id_estadio_e_nro_jogos(dados):
-    pass
+    dici_estadio = {}
+    lista_de_jogos = dados['fases']['2700']['jogos']['id']
+
+    for jogo in lista_de_jogos:
+        estadio = lista_de_jogos[jogo]['estadio_id']
+        if estadio not in dici_estadio:
+            dici_estadio[estadio] = 1
+        else:
+            dici_estadio[estadio] += 1
+    return dici_estadio
 
 
 
@@ -305,7 +325,14 @@ com a pesquisa (e pode ser vazia, se não achar ninguém)
 '''
 
 def busca_imprecisa_por_nome_de_time(dados,nome_time):
-    pass
+    equipes = dados['equipes']
+    lista_times_que_batem = []
+
+    for time in equipes:
+        if nome_time in equipes[time]['nome-comum'] or nome_time in equipes[time]['nome-slug'] or nome_time in equipes[time]['sigla'] or nome_time in equipes[time]['nome']:
+            lista_times_que_batem.append(time)
+    return lista_times_que_batem
+
 
 #ids dos jogos de um time
 
