@@ -397,7 +397,13 @@ def dicionario_de_gols(dados):
             
             if int(jogo['time1']) == equipe:
                 placar = int(jogo['placar1'])
-                dici[equipe]
+                dici[equipe] += placar
+            if int(jogo['time2']) == equipe:
+                placar = int(jogo['placar2'])
+                dici[equipe] += placar
+
+    print(dici)
+    return dici
 
 
             
