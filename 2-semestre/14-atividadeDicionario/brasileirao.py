@@ -284,9 +284,6 @@ def data_de_um_jogo(dados,id_jogo):
     return 'nao encontrado'
 
 
-
-
-
 '''
 A proxima funcao recebe apenas o dicionario dos dados do brasileirao
 
@@ -341,7 +338,19 @@ Agora, a idéia é receber a id de um time
 e retornar as ids de todos os jogos em que ele participou
 '''
 def ids_de_jogos_de_um_time(dados,time_id):
-    pass
+    jogos = dados['fases']['2700']['jogos']['id']
+    
+    participou = []
+
+    for jogo in jogos:
+        
+        time1 = jogos[jogo]['time1']
+        time2 = jogos[jogo]['time2']
+
+        if time_id == time1 or time_id == time2:
+            participou.append(jogo)
+    
+    return participou
 
 '''
 Usando as ids dos jogos em que um time participou, podemos descobrir
@@ -352,7 +361,14 @@ Note que essa função recebe o nome-comum do time, nao sua id.
 Ela retorna uma lista das datas em que o time jogou
 '''
 def datas_de_jogos_de_um_time(dados,nome_time):
-    pass
+    id_time = busca_imprecisa_por_nome_de_time(dados, nome_time)[0]
+    ids_jogos = ids_de_jogos_de_um_time(dados, id_time)
+    datas = []
+
+    for id in ids_jogos:
+        data = dados['fases']['2700']['jogos']['id'][id]['data']
+        datas.append(data)
+    return datas
 
 
 '''
@@ -365,7 +381,27 @@ e o valor associado ao '17' é o numero de gols total que o palmeiras fez.
 '''
 
 def dicionario_de_gols(dados):
-    pass
+    dici = {}
+    equipes = dados['equipes']
+    jogos = dados['fases']['2700']['jogos']['id']
+
+    for equipe in equipes:
+
+        if equipe not in dici:
+            dici[equipe] = 0
+
+        jogos_do_time = ids_de_jogos_de_um_time(dados, equipe)
+
+        for id_jogo in jogos_do_time:
+            jogo = jogos[id_jogo]
+            
+            if int(jogo['time1']) == equipe:
+                placar = jogo[]
+
+
+            
+
+
 
 '''
 A proxima funcao recebe apenas o dicionario dos dados do brasileirao
