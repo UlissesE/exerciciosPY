@@ -396,7 +396,8 @@ def dicionario_de_gols(dados):
             jogo = jogos[id_jogo]
             
             if int(jogo['time1']) == equipe:
-                placar = jogo[]
+                placar = int(jogo['placar1'])
+                dici[equipe]
 
 
             
