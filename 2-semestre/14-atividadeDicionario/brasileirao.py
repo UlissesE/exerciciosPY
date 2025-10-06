@@ -326,8 +326,10 @@ def busca_imprecisa_por_nome_de_time(dados,nome_time):
     equipes = dados['equipes']
     lista_times_que_batem = []
 
+    nome_time = nome_time.lower()
+
     for time in equipes:
-        if nome_time in equipes[time]['nome-comum'] or nome_time in equipes[time]['nome-slug'] or nome_time in equipes[time]['sigla'] or nome_time in equipes[time]['nome']:
+        if nome_time in equipes[time]['nome-comum'].lower() or nome_time in equipes[time]['nome-slug'].lower() or nome_time in equipes[time]['sigla'].lower() or nome_time in equipes[time]['nome'].lower():
             lista_times_que_batem.append(time)
     return lista_times_que_batem
 
