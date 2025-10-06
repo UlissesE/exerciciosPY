@@ -147,14 +147,14 @@ das ids dos times melhor classificados.
 O tamanho da lista que deve ser retornada é o argumento "numero_de_times"
 '''
 def ids_dos_melhor_classificados(dados,numero_de_times):
-    times_classificados = []
+    # times_classificados = []
     lista_classificados = dados['fases']['2700']['classificacao']['grupo']['Único']
 
     # for i in range(0, numero_de_times):
     #     time = dados['fases']['2700']['classificacao']['grupo']['Único'][i]
     #     times_classificados.append(time)
     
-    return lista_classificados[0:numero_de_times] ##retorna a sublista dos n primeiros. Isto é um slice , que vai de 0 até numero_de_times-1
+    return lista_classificados[0:numero_de_times] # retorna a sublista dos n primeiros. Isto é um slice , que vai de 0 até numero_de_times-1
 
 
 '''
@@ -276,11 +276,12 @@ vai falhar
 
 '''
 def data_de_um_jogo(dados,id_jogo):
-    
+
     lista_de_jogos = dados['fases']['2700']['jogos']['id']
 
     if id_jogo in lista_de_jogos.keys():
         return lista_de_jogos[id_jogo]['data']
+        
     return 'nao encontrado'
 
 
@@ -382,27 +383,30 @@ e o valor associado ao '17' é o numero de gols total que o palmeiras fez.
 
 def dicionario_de_gols(dados):
     dici = {}
-    equipes = dados['equipes']
-    jogos = dados['fases']['2700']['jogos']['id']
 
-    for equipe in equipes:
+    equipes = dados['equipes'] # resgata todas as equipes
 
-        if equipe not in dici:
+    jogos = dados['fases']['2700']['jogos']['id'] # resgata todos os jogos
+
+    for equipe in equipes: # Para cada equipe...
+
+        if equipe not in dici: # Adiciona a equipe no dicionário caso não esteja
             dici[equipe] = 0
 
-        jogos_do_time = ids_de_jogos_de_um_time(dados, equipe)
+        jogos_do_time = ids_de_jogos_de_um_time(dados, equipe) # Resgata todos os IDs dos jogos do time da vez
 
-        for id_jogo in jogos_do_time:
-            jogo = jogos[id_jogo]
+        for id_jogo in jogos_do_time:   # Para cada ID de jogo do time...
+
+            jogo = jogos[id_jogo]   # Resgata as informações do jogo específico no arquivo JSON
             
-            if int(jogo['time1']) == equipe:
+            if jogo['time1'] == equipe: # Se for o primeiro time, pega o placar do primeiro time e soma no total do time
                 placar = int(jogo['placar1'])
                 dici[equipe] += placar
-            if int(jogo['time2']) == equipe:
-                placar = int(jogo['placar2'])
+
+            if jogo['time2'] == equipe: # Se for o segundo time, pega o placar do segundo time e soma no total do time
+                placar = int(jogo['placar2'])   
                 dici[equipe] += placar
 
-    print(dici)
     return dici
 
 
@@ -416,11 +420,17 @@ A proxima funcao recebe apenas o dicionario dos dados do brasileirao
 Ela devolve a id do time que fez mais gols no campeonato
 '''
 def time_que_fez_mais_gols(dados):
-    pass
+    todos_os_gols = dicionario_de_gols(dados)
 
+    todos_os_gols_ordenados_crescente = sorted(todos_os_gols, key=todos_os_gols.get, reverse=True)
 
+    time = todos_os_gols_ordenados_crescente[0]
 
+    return time
 
+    # time = (sorted(todos_os_gols, key = todos_os_gols.get, reverse=True))[0]
+    # return time
+    
 
 
 '''
@@ -434,7 +444,16 @@ Consulte a zona de rebaixamento do dicionário de dados, nao deixe
 ela chumbada da função
 '''
 def rebaixados(dados):
-    pass
+    qtd_rebaixados = dados['fases']['2700']['faixas-classificacao']['classifica3']['faixa']
+    posicao_inicial_rebaixamento = int(qtd_rebaixados.split('-')[0])-1
+    posicao_final_rebaixamento = int(qtd_rebaixados.split('-')[1])
+
+    
+    lista_classificados = dados['fases']['2700']['classificacao']['grupo']['Único']
+
+    return lista_classificados[posicao_inicial_rebaixamento:posicao_final_rebaixamento]
+
+
 
 '''
 A proxima função recebe (alem do dicionario de dados do brasileirao) uma id de time
@@ -444,7 +463,14 @@ Ela retorna a classificacao desse time no campeonato.
 Se a id nao for valida, ela retorna a string 'nao encontrado'
 '''
 def classificacao_do_time_por_id(dados,time_id):
-    pass
+
+    lista_classificados = dados['fases']['2700']['classificacao']['grupo']['Único']
+
+    for time_posicao in range(0, len(lista_classificados)):
+        if lista_classificados[time_posicao] == time_id:
+            return time_posicao+1
+                
+    return 'nao encontrado'
 
 
 import unittest
