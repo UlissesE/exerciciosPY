@@ -64,7 +64,13 @@ informação está na apostila
 '''
 
 def no_mesmo_dia(dados,id_jogo):
-    pass
+
+    data_id_jogo = dados['fases']['2700']['jogos']['id'][id_jogo]['data']
+    lista_de_datas = dados['fases']['2700']['jogos']['data']
+
+    if data_id_jogo in lista_de_datas:
+        
+        return lista_de_datas[data_id_jogo] # Vai retornar a lista completa de jogos que aconteceram nesse dia :)
     
 
 

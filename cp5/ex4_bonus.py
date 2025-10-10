@@ -40,7 +40,19 @@ jogaram um contra o outro? Retorne uma lista com essas datas
 '''
 
 def confrontos(dados,id1,id2):
-    pass
+    
+    datas_de_confronto = []
+    lista_jogos = dados['fases']['2700']['jogos']['id']
+    
+    for jogo_id in lista_jogos:
+        time1 = lista_jogos[jogo_id]['time1']
+        time2 = lista_jogos[jogo_id]['time2']
+
+        if (id1 == time1 or id1 == time2) and (id2 == time1 or id2 == time2):
+            datas_de_confronto.append(lista_jogos[jogo_id]['data'])
+    
+    return datas_de_confronto
+
 
 import unittest
 #pode deletar as 4 linhas abaixo, até o pass dentro do except

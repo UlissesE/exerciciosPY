@@ -1,6 +1,6 @@
 import json
 from pprint import pprint
-
+from ex2 import gols_do_jogo
 
 '''
 DICA Pycharm:
@@ -46,7 +46,18 @@ Não considere gols feitos no desempate, nem gols de penalti
 '''
 
 def jogos_com_x_gols(dados,nro_gols):
-    pass
+    
+    ids_jogos_com_x_gols = []
+    lista_jogos = dados['fases']['2700']['jogos']['id']
+
+    for jogo_id in lista_jogos:
+
+        total_gols = gols_do_jogo(dados, jogo_id)
+
+        if total_gols == nro_gols:
+            ids_jogos_com_x_gols.append(jogo_id)
+
+    return ids_jogos_com_x_gols
 
 
 import unittest

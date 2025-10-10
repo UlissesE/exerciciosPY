@@ -1,6 +1,6 @@
 import json
 from pprint import pprint
-
+from ex1 import data_de_um_jogo
 
 '''
 DICA Pycharm:
@@ -39,15 +39,29 @@ Dada a id de um jogo, quantos gols ocorreram naquele jogo?
 '''
 
 def gols_do_jogo(dados,id_jogo):
-    pass
+    jogo = dados['fases']['2700']['jogos']['id'][id_jogo]
+
+    placar1 = int(jogo['placar1'])
+    placar2 = int(jogo['placar2'])
+
+    total_de_gols = placar1 + placar2
+
+    return total_de_gols
 
 '''
 Dada uma data de jogo, no formato 2018-04-14, quantos gols ocorreram no total aquele dia?
 '''
 
 def gols_do_dia_por_data(dados,data):
-    pass
 
+    jogos_do_dia = dados['fases']['2700']['jogos']['data'][data]
+
+    total_gols_dia = 0
+
+    for jogo in jogos_do_dia:
+        total_gols_dia += gols_do_jogo(dados, jogo)
+
+    return total_gols_dia
 
 '''
 Dada id de um jogo, quantos gols ocorreram no total aquele dia?
@@ -56,8 +70,11 @@ inclusive o jogo que eu te passei
 '''
 
 def gols_do_dia_por_id(dados,id_jogo):
-    pass
+    
+    dia_do_jogo = data_de_um_jogo(dados, id_jogo)
+    gols_no_dia = gols_do_dia_por_data(dados, dia_do_jogo)
 
+    return gols_no_dia
 
 import unittest
 #pode deletar as 4 linhas abaixo, até o pass dentro do except
